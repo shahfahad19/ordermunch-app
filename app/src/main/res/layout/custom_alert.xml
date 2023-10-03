@@ -1,0 +1,40 @@
+<!-- res/layout/custom_alert_dialog.xml -->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/alertImage"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/em_happy"
+        android:layout_centerHorizontal="true"
+        android:layout_marginVertical="10dp"/>
+    <!-- Content (customize as needed) -->
+    <TextView
+        android:id="@+id/alertText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/alertImage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/space_grotesk_medium"
+        android:text="This is custom dialog content. You can customize it as needed."
+        android:textAlignment="center"
+        android:textSize="16dp" />
+
+    <!-- Close Button -->
+    <Button
+        android:id="@+id/alertBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/alertText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/krona_one"
+        android:text="Ok" />
+
+</RelativeLayout>
