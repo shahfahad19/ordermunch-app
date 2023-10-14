@@ -80,9 +80,9 @@ public class LoginActivity extends AppCompatActivity {
                 LoginRequest loginRequest = new LoginRequest(email, password);
 
                 // Calling API
-                Call<LoginResponse> loginCall = apiService.login(loginRequest);
+                Call<LoginResponse> requestCall = apiService.login(loginRequest);
 
-                loginCall.enqueue(new Callback<LoginResponse>() {
+                requestCall.enqueue(new Callback<LoginResponse>() {
                     @Override
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                         progressDialog.hide();

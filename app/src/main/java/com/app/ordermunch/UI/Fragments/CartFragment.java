@@ -31,6 +31,8 @@ import com.app.ordermunch.R;
 import com.app.ordermunch.UI.ViewOrderActivity;
 import com.app.ordermunch.Utils.CustomAlert;
 import com.app.ordermunch.Utils.CustomProgressDialog;
+import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,6 +53,9 @@ public class CartFragment extends Fragment implements CartAdapter.CartItemClickL
     LinearLayout notFound;
 
     Button checkoutBtn;
+    BottomNavigationView bottomNavigationView;
+    BadgeDrawable badge;
+
 
 
 
@@ -69,6 +74,9 @@ public class CartFragment extends Fragment implements CartAdapter.CartItemClickL
         notFound = view.findViewById(R.id.noFoundView);
         checkoutBtn = view.findViewById(R.id.checkoutBtn);
 
+        bottomNavigationView = getActivity().findViewById(R.id.bottom_navigation);
+        badge = bottomNavigationView.getOrCreateBadge(R.id.menu_cart);
+
 
         recyclerView.setAdapter(cartAdapter);
 
@@ -82,9 +90,9 @@ public class CartFragment extends Fragment implements CartAdapter.CartItemClickL
 
     private void getCart() {
         customProgressDialog.showProgressDialog("Loading cart");
-        Call<CartResponse> itemCall = apiService.getCart();
+        Call<CartResponse> requestCall = apiService.getCart();
 
-        itemCall.enqueue(new Callback<CartResponse>() {
+        requestCall.enqueue(new Callback<CartResponse>() {
             @Override
             public void onResponse(Call<CartResponse> call, Response<CartResponse> response) {
 
@@ -94,6 +102,7 @@ public class CartFragment extends Fragment implements CartAdapter.CartItemClickL
                 if (response.isSuccessful()) {
                     CartResponse cartResponse = response.body();
                     showCart(cartResponse.getCart(), cartResponse.getAmount());
+                    badge.setNumber(cartResponse.getCart().size());
 
 
                 }
@@ -157,9 +166,9 @@ public class CartFragment extends Fragment implements CartAdapter.CartItemClickL
 
         // Calling API
         CartRequest cartRequest = new CartRequest(id);
-        Call<CartResponse> loginCall = apiService.removeFromCart(cartRequest);
+        Call<CartResponse> requestCall = apiService.removeFromCart(cartRequest);
 
-        loginCall.enqueue(new Callback<CartResponse>() {
+        requestCall.enqueue(new Callback<CartResponse>() {
             @Override
             public void onResponse(Call<CartResponse> call, Response<CartResponse> response) {
                 customProgressDialog.hide();
@@ -167,7 +176,10 @@ public class CartFragment extends Fragment implements CartAdapter.CartItemClickL
                 if (response.isSuccessful()) {
 
                     CartResponse cartResponse = response.body();
+
                     showCart(cartResponse.getCart(), cartResponse.getAmount());
+
+                    badge.setNumber(cartResponse.getCart().size());
 
                 }
 
@@ -206,9 +218,9 @@ public class CartFragment extends Fragment implements CartAdapter.CartItemClickL
 
         // Calling API
         CartRequest cartRequest = new CartRequest(id);
-        Call<CartResponse> loginCall = apiService.addToCart(cartRequest);
+        Call<CartResponse> requestCall = apiService.addToCart(cartRequest);
 
-        loginCall.enqueue(new Callback<CartResponse>() {
+        requestCall.enqueue(new Callback<CartResponse>() {
             @Override
             public void onResponse(Call<CartResponse> call, Response<CartResponse> response) {
                 customProgressDialog.hide();
@@ -217,6 +229,7 @@ public class CartFragment extends Fragment implements CartAdapter.CartItemClickL
 
                     CartResponse cartResponse = response.body();
                     showCart(cartResponse.getCart(), cartResponse.getAmount());
+                    badge.setNumber(cartResponse.getCart().size());
 
 
                 }
@@ -257,6 +270,7 @@ public class CartFragment extends Fragment implements CartAdapter.CartItemClickL
                 .setMessage("This item will be deleted from cart?")
                 .setPositiveButton("Yes", (dialog, which) -> {
                     deleteItem(id);
+                    badge.clearNumber();
                 }).setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
 
 
@@ -272,9 +286,9 @@ public class CartFragment extends Fragment implements CartAdapter.CartItemClickL
 
         // Calling API
         CartRequest cartRequest = new CartRequest(id);
-        Call<CartResponse> loginCall = apiService.deleteFromCart(cartRequest);
+        Call<CartResponse> requestCall = apiService.deleteFromCart(cartRequest);
 
-        loginCall.enqueue(new Callback<CartResponse>() {
+        requestCall.enqueue(new Callback<CartResponse>() {
             @Override
             public void onResponse(Call<CartResponse> call, Response<CartResponse> response) {
                 customProgressDialog.hide();
@@ -283,6 +297,8 @@ public class CartFragment extends Fragment implements CartAdapter.CartItemClickL
 
                     CartResponse cartResponse = response.body();
                     showCart(cartResponse.getCart(), cartResponse.getAmount());
+
+                    badge.setNumber(cartResponse.getCart().size());
 
 
                 }
@@ -328,6 +344,7 @@ public class CartFragment extends Fragment implements CartAdapter.CartItemClickL
 
                 // If request is successful
                 if (response.isSuccessful()) {
+                    badge.setNumber(0);
                     cartAdapter.updateData(new ArrayList<>());
                     SingleOrderResponse orderResponse = response.body();
                     Order order = orderResponse.getOrder();

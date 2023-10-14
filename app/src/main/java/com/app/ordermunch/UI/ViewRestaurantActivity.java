@@ -127,9 +127,9 @@ public class ViewRestaurantActivity extends AppCompatActivity implements ItemAda
     }
 
     public void getRestaurant() {
-        Call<SingleRestaurantResponse> restaurantCall = apiService.getRestaurantById(restaurantId);
+        Call<SingleRestaurantResponse> requestCall = apiService.getRestaurantById(restaurantId);
 
-        restaurantCall.enqueue(new Callback<SingleRestaurantResponse>() {
+        requestCall.enqueue(new Callback<SingleRestaurantResponse>() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(Call<SingleRestaurantResponse> call, Response<SingleRestaurantResponse> response) {
@@ -193,9 +193,9 @@ public class ViewRestaurantActivity extends AppCompatActivity implements ItemAda
 
     public void getItems() {
 
-        Call<ItemResponse> itemCall = apiService.getItems(999, restaurantId);
+        Call<ItemResponse> requestCall = apiService.getItems(999, restaurantId);
 
-        itemCall.enqueue(new Callback<ItemResponse>() {
+        requestCall.enqueue(new Callback<ItemResponse>() {
             @Override
             public void onResponse(Call<ItemResponse> call, Response<ItemResponse> response) {
 

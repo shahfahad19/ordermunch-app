@@ -68,9 +68,9 @@ public class ItemReviewsActivity extends AppCompatActivity {
 
 
         customProgressDialog.showProgressDialog("Loading reviews");
-        Call<SingleItemResponse> itemCall = apiService.getItemById(itemId);
+        Call<SingleItemResponse> requestCall = apiService.getItemById(itemId);
 
-        itemCall.enqueue(new Callback<SingleItemResponse>() {
+        requestCall.enqueue(new Callback<SingleItemResponse>() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(Call<SingleItemResponse> call, Response<SingleItemResponse> response) {

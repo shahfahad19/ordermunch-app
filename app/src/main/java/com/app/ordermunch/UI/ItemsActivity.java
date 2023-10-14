@@ -62,9 +62,9 @@ public class ItemsActivity extends AppCompatActivity implements ItemAdapter.Item
         itemAdapter = new ItemAdapter(this, this);
         recyclerView.setAdapter(itemAdapter);
 
-        Call<ItemResponse> itemCall = apiService.getItems(999);
+        Call<ItemResponse> requestCall = apiService.getItems(999);
 
-        itemCall.enqueue(new Callback<ItemResponse>() {
+        requestCall.enqueue(new Callback<ItemResponse>() {
             @Override
             public void onResponse(Call<ItemResponse> call, Response<ItemResponse> response) {
 

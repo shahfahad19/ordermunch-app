@@ -46,9 +46,9 @@ public class RestaurantsActivity extends AppCompatActivity implements Restaurant
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setAdapter(restaurantAdapter);
 
-        Call<RestaurantsResponse> restaurantCall = apiService.getRestaurants();
+        Call<RestaurantsResponse> requestCall = apiService.getRestaurants();
 
-        restaurantCall.enqueue(new Callback<RestaurantsResponse>() {
+        requestCall.enqueue(new Callback<RestaurantsResponse>() {
             @Override
             public void onResponse(Call<RestaurantsResponse> call, Response<RestaurantsResponse> response) {
 

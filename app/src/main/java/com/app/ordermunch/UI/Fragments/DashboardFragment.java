@@ -100,9 +100,9 @@ public class DashboardFragment extends Fragment implements ItemAdapter.ItemClick
 
     public void fetchRestaurants() {
         customProgressDialog.showProgressDialog("Loading restaurants");
-        Call<RestaurantsResponse> restaurantCall = apiService.getRestaurants();
+        Call<RestaurantsResponse> requestCall = apiService.getRestaurants();
 
-        restaurantCall.enqueue(new Callback<RestaurantsResponse>() {
+        requestCall.enqueue(new Callback<RestaurantsResponse>() {
             @Override
             public void onResponse(Call<RestaurantsResponse> call, Response<RestaurantsResponse> response) {
 
@@ -155,9 +155,9 @@ public class DashboardFragment extends Fragment implements ItemAdapter.ItemClick
     }
 
     public void fetchItems() {
-        Call<ItemResponse> itemCall = apiService.getItems(6);
+        Call<ItemResponse> requestCall = apiService.getItems(6);
 
-        itemCall.enqueue(new Callback<ItemResponse>() {
+        requestCall.enqueue(new Callback<ItemResponse>() {
             @Override
             public void onResponse(Call<ItemResponse> call, Response<ItemResponse> response) {
 

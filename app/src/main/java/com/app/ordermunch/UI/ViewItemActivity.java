@@ -111,9 +111,9 @@ public class ViewItemActivity extends AppCompatActivity {
         buyNowBtn.setOnClickListener(v-> buyNow());
 
         customProgressDialog.showProgressDialog("Loading item");
-        Call<SingleItemResponse> itemCall = apiService.getItemById(itemId);
+        Call<SingleItemResponse> requestCall = apiService.getItemById(itemId);
 
-        itemCall.enqueue(new Callback<SingleItemResponse>() {
+        requestCall.enqueue(new Callback<SingleItemResponse>() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(Call<SingleItemResponse> call, Response<SingleItemResponse> response) {
@@ -198,9 +198,9 @@ public class ViewItemActivity extends AppCompatActivity {
 
             // Calling API
             CartRequest cartRequest = new CartRequest(itemId);
-            Call<CartResponse> loginCall = apiService.addToCart(cartRequest);
+            Call<CartResponse> cartResponseCall = apiService.addToCart(cartRequest);
 
-            loginCall.enqueue(new Callback<CartResponse>() {
+            cartResponseCall.enqueue(new Callback<CartResponse>() {
                 @Override
                 public void onResponse(Call<CartResponse> call, Response<CartResponse> response) {
                     customProgressDialog.hide();
