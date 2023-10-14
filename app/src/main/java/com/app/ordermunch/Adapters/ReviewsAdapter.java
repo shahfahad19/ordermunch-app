@@ -15,11 +15,6 @@ import com.app.ordermunch.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -60,11 +55,11 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.ViewHold
         ItemReview review = reviewList.get(position);
         // Bind the data to the views in the grid review layout
 
-
         holder.userName.setText(review.getPosted_by().getName());
         holder.review.setText(review.getReview());
         holder.stars.setText(review.getStars()+"/5");
 
+        // Formatting Date
         // Defining input and output date formats
         SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         SimpleDateFormat outputFormat = new SimpleDateFormat("hh:mm a dd MMM, yyyy", Locale.ENGLISH);

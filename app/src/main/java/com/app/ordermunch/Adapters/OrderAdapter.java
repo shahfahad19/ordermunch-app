@@ -1,12 +1,10 @@
 package com.app.ordermunch.Adapters;
 
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -48,6 +46,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         this.orderList = new ArrayList<>();
         this.orderClickListener = listener;
         inflater = LayoutInflater.from(context);
+
+        // Colors for different order status
         stateColors.put("Pending", R.color.colorPending);
         stateColors.put("Confirmed", R.color.colorConfirmed);
         stateColors.put("Preparing", R.color.colorPreparing);
@@ -60,9 +60,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         this.orderList = items;
         notifyDataSetChanged();
     }
-
-
-
 
 
     @NonNull
@@ -81,12 +78,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         holder.orderStatus.setText(order.getStatus());
         holder.orderItems.setText("Items: "+order.getItemsCount());
 
+
+        // Setting color according to order status
         int colorResId = stateColors.get(order.getStatus());
         holder.orderStatus.setTextColor(ContextCompat.getColor(context, colorResId));
 
 
 
-        // Defining input and output date formats
+        // Formatting date
         SimpleDateFormat isoFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         SimpleDateFormat outputFormat = new SimpleDateFormat("hh:mm a dd MMM, yyyy", Locale.ENGLISH);
 

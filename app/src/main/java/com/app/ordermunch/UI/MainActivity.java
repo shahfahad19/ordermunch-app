@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 
@@ -15,7 +14,6 @@ import com.app.ordermunch.UI.Fragments.DashboardFragment;
 import com.app.ordermunch.UI.Fragments.OrdersFragment;
 import com.app.ordermunch.UI.Fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.orhanobut.hawk.Hawk;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,11 +24,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         // Set the initial fragment
-        loadFragment(new DashboardFragment()); // Replace with your initial fragment
+        loadFragment(new DashboardFragment());
 
         // Set listener for bottom navigation view
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -52,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // Load a fragment into the container
+    // Load fragment into the container
     private void loadFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

@@ -1,6 +1,5 @@
 package com.app.ordermunch.UI.Fragments;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -13,35 +12,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.app.ordermunch.API.ApiClient;
 import com.app.ordermunch.API.ApiErrorUtils;
 import com.app.ordermunch.API.ApiException;
 import com.app.ordermunch.API.ApiService;
-import com.app.ordermunch.API.Models.Cart.CartRequest;
-import com.app.ordermunch.API.Models.Cart.CartResponse;
 import com.app.ordermunch.API.Models.Item.ItemResponse;
 import com.app.ordermunch.API.Models.Restaurant.RestaurantsResponse;
-import com.app.ordermunch.Adapters.CartAdapter;
 import com.app.ordermunch.Adapters.ItemAdapter;
 import com.app.ordermunch.Adapters.RestaurantAdapter;
-import com.app.ordermunch.Models.CartItem;
 import com.app.ordermunch.Models.Item;
 import com.app.ordermunch.Models.Restaurant;
 import com.app.ordermunch.R;
 import com.app.ordermunch.UI.ItemsActivity;
-import com.app.ordermunch.UI.LoginActivity;
 import com.app.ordermunch.UI.RestaurantsActivity;
-import com.app.ordermunch.UI.SearchItemsActivity;
 import com.app.ordermunch.UI.ViewItemActivity;
 import com.app.ordermunch.UI.ViewRestaurantActivity;
 import com.app.ordermunch.Utils.CustomAlert;
 import com.app.ordermunch.Utils.CustomProgressDialog;
-import com.orhanobut.hawk.Hawk;
 
 import java.util.List;
 
@@ -83,19 +73,26 @@ public class DashboardFragment extends Fragment implements ItemAdapter.ItemClick
         seeAllItemsButton = view.findViewById(R.id.seeAllItemsBtn);
         dashboardMainView = view.findViewById(R.id.dashboardMainView);
 
+        // Restaurant and items adapter
         restaurantAdapter = new RestaurantAdapter(getContext(), this, false);
         itemAdapter = new ItemAdapter(getContext(), this);
 
+        // setting adapter in recyclerview
         restaurantRecyclerView.setAdapter(restaurantAdapter);
         itemRecyclerView.setAdapter(itemAdapter);
 
+        // click listeners for restaurant and items
         seeAllRestaurants.setOnClickListener(v->startActivity(new Intent(getContext(), RestaurantsActivity.class)));
         seeAllItemsButton.setOnClickListener(v->startActivity(new Intent(getContext(), ItemsActivity.class)));
 
 
+        // custom progress dialog
         customProgressDialog = new CustomProgressDialog(getContext());
 
+        // hide ui while data is loading
         dashboardMainView.setVisibility(View.GONE);
+
+        // get restaurants
         fetchRestaurants();
 
         return view;
@@ -111,7 +108,7 @@ public class DashboardFragment extends Fragment implements ItemAdapter.ItemClick
 
                 customProgressDialog.hide();
 
-                // If login is successful
+                // if request is successful
                 if (response.isSuccessful()) {
                     RestaurantsResponse restaurantsResponse = response.body();
                     List<Restaurant> restaurantList = restaurantsResponse.getRestaurants();
@@ -121,7 +118,7 @@ public class DashboardFragment extends Fragment implements ItemAdapter.ItemClick
                     fetchItems();
                 }
 
-                // If login failed
+                // if request failed
                 else {
 
                     // Parsing Error
@@ -166,7 +163,7 @@ public class DashboardFragment extends Fragment implements ItemAdapter.ItemClick
 
                 customProgressDialog.hide();
 
-                // If login is successful
+                // if request is successful
                 if (response.isSuccessful()) {
                     ItemResponse itemsResponse = response.body();
                     List<Item> itemList = itemsResponse.getItemList();
@@ -174,7 +171,7 @@ public class DashboardFragment extends Fragment implements ItemAdapter.ItemClick
                     dashboardMainView.setVisibility(View.VISIBLE);
                 }
 
-                // If login failed
+                // if request failed
                 else {
 
                     // Parsing Error

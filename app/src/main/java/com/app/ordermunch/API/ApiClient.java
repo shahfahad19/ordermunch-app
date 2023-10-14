@@ -17,6 +17,7 @@ public class ApiClient {
 
             httpClient.addInterceptor(chain -> {
                 Request originalRequest = chain.request();
+                // Creating request and adding user jwt token as header
                 Request newRequest = originalRequest.newBuilder()
                         .header("Authorization", "Bearer " + Hawk.get("jwtToken", ""))
                         .build();

@@ -2,7 +2,6 @@ package com.app.ordermunch.UI.Fragments;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -11,44 +10,30 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.app.ordermunch.API.ApiClient;
 import com.app.ordermunch.API.ApiErrorUtils;
 import com.app.ordermunch.API.ApiException;
 import com.app.ordermunch.API.ApiService;
-import com.app.ordermunch.API.Models.Auth.LoginResponse;
 import com.app.ordermunch.API.Models.Cart.CartRequest;
 import com.app.ordermunch.API.Models.Cart.CartResponse;
-import com.app.ordermunch.API.Models.Item.ItemResponse;
 import com.app.ordermunch.API.Models.Order.SingleOrderResponse;
 import com.app.ordermunch.Adapters.CartAdapter;
-import com.app.ordermunch.Adapters.ItemAdapter;
 import com.app.ordermunch.Models.CartItem;
-import com.app.ordermunch.Models.Item;
 import com.app.ordermunch.Models.Order;
 import com.app.ordermunch.R;
-import com.app.ordermunch.UI.ItemsActivity;
-import com.app.ordermunch.UI.LoginActivity;
 import com.app.ordermunch.UI.ViewOrderActivity;
 import com.app.ordermunch.Utils.CustomAlert;
 import com.app.ordermunch.Utils.CustomProgressDialog;
-import com.orhanobut.hawk.Hawk;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -105,7 +90,7 @@ public class CartFragment extends Fragment implements CartAdapter.CartItemClickL
 
                 customProgressDialog.hide();
 
-                // If login is successful
+                // if request is successful
                 if (response.isSuccessful()) {
                     CartResponse cartResponse = response.body();
                     showCart(cartResponse.getCart(), cartResponse.getAmount());
@@ -113,7 +98,7 @@ public class CartFragment extends Fragment implements CartAdapter.CartItemClickL
 
                 }
 
-                // If login failed
+                // if request failed
                 else {
 
                     // Parsing Error
@@ -149,6 +134,7 @@ public class CartFragment extends Fragment implements CartAdapter.CartItemClickL
     }
 
     public void showCart(List<CartItem> itemList, double amount) {
+        // if not items, show no items found message
         if (itemList.isEmpty()) {
             notFound.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.INVISIBLE);

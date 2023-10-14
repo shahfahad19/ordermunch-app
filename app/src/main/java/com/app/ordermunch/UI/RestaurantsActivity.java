@@ -54,7 +54,7 @@ public class RestaurantsActivity extends AppCompatActivity implements Restaurant
 
                 customProgressDialog.hide();
 
-                // If login is successful
+                // if request is successful
                 if (response.isSuccessful()) {
                     RestaurantsResponse restaurantsResponse = response.body();
                     List<Restaurant> restaurantList = restaurantsResponse.getRestaurants();
@@ -62,7 +62,7 @@ public class RestaurantsActivity extends AppCompatActivity implements Restaurant
 
                 }
 
-                // If login failed
+                // if request failed
                 else {
 
                     // Parsing Error

@@ -1,7 +1,6 @@
 package com.app.ordermunch.Adapters;
 
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +15,6 @@ import com.app.ordermunch.Models.Item;
 import com.app.ordermunch.R;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +22,7 @@ import java.util.List;
 
 public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
+    
     private List<Item> itemList;
     private LayoutInflater inflater;
 
@@ -44,10 +43,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         this.itemList = items;
         notifyDataSetChanged();
     }
-
-
-
-
+    
 
     @NonNull
     @Override
@@ -67,7 +63,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         holder.restaurantName.setText(item.getRestaurant().getName());
 
 
-        // Load the Item image using an image loading library like Glide or Picasso
+        // Load the Item image
         try {
             Picasso.get()
                     .load(item.getImage())

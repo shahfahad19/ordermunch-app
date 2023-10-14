@@ -2,7 +2,6 @@ package com.app.ordermunch.Adapters;
 
 
 import android.content.Context;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +19,10 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Callback;
 
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.ViewHolder> {
 
+    // restaurant list
     private List<Restaurant> restaurantsList;
     private LayoutInflater inflater;
 

@@ -23,9 +23,11 @@ import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
+    // list for cart items
     private List<CartItem> itemList;
     private LayoutInflater inflater;
 
+    // click listeners
     public interface CartItemClickListener {
         void onRemoveItemClicked(String id);
         void onAddItemClicked(String id);
@@ -58,6 +60,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+        // Setting data
         CartItem item = itemList.get(position);
         // Bind the data to the views in the grid item layout
         holder.itemName.setText(item.getItem().getName());
@@ -72,7 +76,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
         }
 
-        // Load the Item image using an image loading library like Glide or Picasso
+        // Load the Item image
         try {
             Picasso.get()
                     .load(item.getItem().getImage())
@@ -116,6 +120,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
+
             itemImage = itemView.findViewById(R.id.itemImage);
             itemName = itemView.findViewById(R.id.itemName);
             itemPrice = itemView.findViewById(R.id.itemPrice);

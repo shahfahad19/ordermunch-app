@@ -2,12 +2,10 @@ package com.app.ordermunch.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.ordermunch.API.ApiClient;
@@ -15,11 +13,9 @@ import com.app.ordermunch.API.ApiErrorUtils;
 import com.app.ordermunch.API.ApiException;
 import com.app.ordermunch.API.ApiService;
 import com.app.ordermunch.API.Models.Auth.SignupRequest;
-import com.app.ordermunch.API.Models.Auth.SignupResponse;
 import com.app.ordermunch.R;
 import com.app.ordermunch.Utils.CustomAlert;
 import com.app.ordermunch.Utils.CustomProgressDialog;
-import com.orhanobut.hawk.Hawk;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -75,11 +71,11 @@ public class SignupActivity extends AppCompatActivity {
                 SignupRequest signupRequest = new SignupRequest(name, email, password, passwordConfirm);
 
                 // Calling API
-                Call<SignupResponse> signupCall = apiService.signup(signupRequest);
+                Call<Void> signupCall = apiService.signup(signupRequest);
 
-                signupCall.enqueue(new Callback<SignupResponse>() {
+                signupCall.enqueue(new Callback<Void>() {
                     @Override
-                    public void onResponse(Call<SignupResponse> call, Response<SignupResponse> response) {
+                    public void onResponse(Call<Void> call, Response<Void> response) {
                         progressDialog.hide();
 
                         // If signup is successful
@@ -111,7 +107,7 @@ public class SignupActivity extends AppCompatActivity {
 
                     // If request failed due to a network error
                     @Override
-                    public void onFailure(Call<SignupResponse> call, Throwable t) {
+                    public void onFailure(Call<Void> call, Throwable t) {
 
                         // Parsing error
                         ApiException apiException = ApiErrorUtils.parseError(t);

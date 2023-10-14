@@ -122,7 +122,7 @@ public class ViewItemActivity extends AppCompatActivity {
                 mainLayout.setVisibility(View.VISIBLE);
 
 
-                // If login is successful
+                // if request is successful
                 if (response.isSuccessful()) {
                     SingleItemResponse itemsResponse = response.body();
 
@@ -272,7 +272,7 @@ public class ViewItemActivity extends AppCompatActivity {
             ImageView addBtn = dialogView.findViewById(R.id.addBtn);
             ImageView subtractBtn = dialogView.findViewById(R.id.subtractBtn);
 
-            // Set item details (you can replace these with your actual item details)
+            // Set item details
             try {
                 Picasso.get().load(item.getImage()).into(itemImage);
             }

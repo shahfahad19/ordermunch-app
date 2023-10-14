@@ -21,7 +21,6 @@ import com.app.ordermunch.API.ApiErrorUtils;
 import com.app.ordermunch.API.ApiException;
 import com.app.ordermunch.API.ApiService;
 import com.app.ordermunch.API.Models.Item.ItemResponse;
-import com.app.ordermunch.API.Models.Item.SingleItemResponse;
 import com.app.ordermunch.API.Models.Restaurant.SingleRestaurantResponse;
 import com.app.ordermunch.Adapters.ItemAdapter;
 import com.app.ordermunch.Models.Item;
@@ -136,7 +135,7 @@ public class ViewRestaurantActivity extends AppCompatActivity implements ItemAda
             public void onResponse(Call<SingleRestaurantResponse> call, Response<SingleRestaurantResponse> response) {
 
 
-                // If login is successful
+                // if request is successful
                 if (response.isSuccessful()) {
                     SingleRestaurantResponse restaurantResponse = response.body();
 
@@ -156,7 +155,7 @@ public class ViewRestaurantActivity extends AppCompatActivity implements ItemAda
                     catch (Exception e) {}
                 }
 
-                // If login failed
+                // if request failed
                 else {
                     // Parsing Error
                     ApiException apiException = ApiErrorUtils.parseError(new HttpException(response));
@@ -204,7 +203,7 @@ public class ViewRestaurantActivity extends AppCompatActivity implements ItemAda
                 mainView.setVisibility(View.VISIBLE);
 
 
-                // If login is successful
+                // if request is successful
                 if (response.isSuccessful()) {
 
                     ItemResponse itemsResponse = response.body();
@@ -219,7 +218,7 @@ public class ViewRestaurantActivity extends AppCompatActivity implements ItemAda
 
                 }
 
-                // If login failed
+                // if request failed
                 else {
 
                     // Parsing Error

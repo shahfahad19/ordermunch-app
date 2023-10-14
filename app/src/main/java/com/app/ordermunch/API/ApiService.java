@@ -3,7 +3,6 @@ package com.app.ordermunch.API;
 import com.app.ordermunch.API.Models.Auth.LoginRequest;
 import com.app.ordermunch.API.Models.Auth.LoginResponse;
 import com.app.ordermunch.API.Models.Auth.SignupRequest;
-import com.app.ordermunch.API.Models.Auth.SignupResponse;
 import com.app.ordermunch.API.Models.Cart.CartRequest;
 import com.app.ordermunch.API.Models.Cart.CartResponse;
 import com.app.ordermunch.API.Models.Item.ItemResponse;
@@ -21,7 +20,6 @@ import com.app.ordermunch.API.Models.Review.AddReviewRequest;
 import com.app.ordermunch.API.Models.Review.UpdateReviewRequest;
 
 import retrofit2.Call;
-import retrofit2.Response;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -33,7 +31,7 @@ import retrofit2.http.Query;
 public interface ApiService {
 
     @POST("auth/signup")
-    Call<SignupResponse> signup(@Body SignupRequest request);
+    Call<Void> signup(@Body SignupRequest request);
     @POST("auth/login")
     Call<LoginResponse> login(@Body LoginRequest request);
 

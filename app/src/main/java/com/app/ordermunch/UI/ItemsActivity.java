@@ -1,7 +1,6 @@
 package com.app.ordermunch.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -11,7 +10,6 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.app.ordermunch.API.ApiClient;
 import com.app.ordermunch.API.ApiErrorUtils;
@@ -20,7 +18,6 @@ import com.app.ordermunch.API.ApiService;
 import com.app.ordermunch.API.Models.Item.ItemResponse;
 import com.app.ordermunch.Adapters.ItemAdapter;
 import com.app.ordermunch.Models.Item;
-import com.app.ordermunch.Models.Restaurant;
 import com.app.ordermunch.R;
 import com.app.ordermunch.Utils.CustomAlert;
 import com.app.ordermunch.Utils.CustomProgressDialog;
@@ -73,7 +70,7 @@ public class ItemsActivity extends AppCompatActivity implements ItemAdapter.Item
 
                 customProgressDialog.hide();
 
-                // If login is successful
+                // if request is successful
                 if (response.isSuccessful()) {
                     ItemResponse itemsResponse = response.body();
                     itemList = itemsResponse.getItemList();
@@ -81,7 +78,7 @@ public class ItemsActivity extends AppCompatActivity implements ItemAdapter.Item
 
                 }
 
-                // If login failed
+                // if request failed
                 else {
 
                     // Parsing Error

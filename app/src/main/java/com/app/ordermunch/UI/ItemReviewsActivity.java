@@ -8,8 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,18 +16,13 @@ import com.app.ordermunch.API.ApiClient;
 import com.app.ordermunch.API.ApiErrorUtils;
 import com.app.ordermunch.API.ApiException;
 import com.app.ordermunch.API.ApiService;
-import com.app.ordermunch.API.Models.Cart.CartRequest;
-import com.app.ordermunch.API.Models.Cart.CartResponse;
 import com.app.ordermunch.API.Models.Item.SingleItemResponse;
 import com.app.ordermunch.Adapters.ReviewsAdapter;
-import com.app.ordermunch.Models.Item;
 import com.app.ordermunch.Models.ItemReview;
 import com.app.ordermunch.R;
 import com.app.ordermunch.Utils.CustomAlert;
 import com.app.ordermunch.Utils.CustomProgressDialog;
-import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -86,7 +79,7 @@ public class ItemReviewsActivity extends AppCompatActivity {
                 mainLayout.setVisibility(View.VISIBLE);
 
 
-                // If login is successful
+                // if request is successful
                 if (response.isSuccessful()) {
                     SingleItemResponse itemsResponse = response.body();
 

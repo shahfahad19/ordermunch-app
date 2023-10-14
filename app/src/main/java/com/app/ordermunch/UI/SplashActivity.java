@@ -17,7 +17,7 @@ import com.orhanobut.hawk.Hawk;
 public class SplashActivity extends AppCompatActivity {
 
 
-    private static final int SPLASH_DURATION = 1000; // Splash screen duration in milliseconds
+    private static final int SPLASH_DURATION = 1000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

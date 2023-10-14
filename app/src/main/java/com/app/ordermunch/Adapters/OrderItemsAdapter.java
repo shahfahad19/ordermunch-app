@@ -1,7 +1,5 @@
 package com.app.ordermunch.Adapters;
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.ordermunch.Models.CartItem;
-import com.app.ordermunch.Models.Item;
 import com.app.ordermunch.Models.ItemReview;
 import com.app.ordermunch.R;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +22,7 @@ import java.util.List;
 
 public class OrderItemsAdapter extends RecyclerView.Adapter<OrderItemsAdapter.ViewHolder> {
 
+    //list for order items and reviews
     private List<CartItem> itemList;
     private List<ItemReview> reviewList;
     private String orderStatus;
@@ -67,6 +63,7 @@ public class OrderItemsAdapter extends RecyclerView.Adapter<OrderItemsAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
+        // hide review and buttons first
         holder.reviewLayout.setVisibility(View.GONE);
         holder.reviewBtnLayout.setVisibility(View.GONE);
         holder.addReviewBtn.setVisibility(View.GONE);
@@ -81,7 +78,7 @@ public class OrderItemsAdapter extends RecyclerView.Adapter<OrderItemsAdapter.Vi
         holder.restaurantName.setText(cartItem.getItem().getRestaurant().getName());
 
 
-        // Load the Item image using an image loading library like Glide or Picasso
+        // Load the Item image 
         try {
             Picasso.get()
                     .load(cartItem.getItem().getImage())
@@ -90,28 +87,30 @@ public class OrderItemsAdapter extends RecyclerView.Adapter<OrderItemsAdapter.Vi
         catch (Exception ignored) {}
 
 
+        // if order is completed, only then show add review button
         if (orderStatus.equals("Completed")) {
             holder.reviewBtnLayout.setVisibility(View.VISIBLE);
         }
 
         ItemReview foundReview = reviewList.stream().filter(review -> review.getItem().equals(cartItem.getItem().getId())).findFirst().orElse(null);
 
-        // Exit the loop once the target review is found
-
         if (foundReview != null) {
-            Log.e("e", "Review found");
-            holder.updateReviewBtn.setVisibility(View.VISIBLE);
 
+            // If review found, show review and update review button
+            holder.updateReviewBtn.setVisibility(View.VISIBLE);
             holder.reviewLayout.setVisibility(View.VISIBLE);
             holder.review.setText(foundReview.getReview());
             holder.stars.setText(foundReview.getStars()+"/5");
         }
         else {
-            Log.e("e", "Review not found");
+
+            // if no review found show add review button
             holder.addReviewBtn.setVisibility(View.VISIBLE);
 
         }
 
+
+        // click listeners for different parts of item
         holder.itemLayout.setOnClickListener(v -> {
             if (itemClickListener != null) {
                 itemClickListener.onItemClickListener(cartItem.getItem().getId());

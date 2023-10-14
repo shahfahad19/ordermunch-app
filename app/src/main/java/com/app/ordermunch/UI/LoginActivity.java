@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -88,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                         progressDialog.hide();
 
-                        // If login is successful
+                        // if request is successful
                         if (response.isSuccessful()) {
 
                             // Get response
@@ -109,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         }
 
-                        // If login failed
+                        // if request failed
                         else {
 
                             // Parsing Error

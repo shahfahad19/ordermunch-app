@@ -16,12 +16,12 @@ public class ApiErrorUtils {
             if (response != null) {
                 if (response.errorBody() != null) {
                     try {
-                        // Try to parse the error response body as JSON
+                        // Trying to parse the error response body as JSON
                         String errorBody = response.errorBody().string();
                         Log.e("E", errorBody);
 
 
-                        // Parse the JSON to extract the error message
+                        // Parsing the JSON to extract the error message
                         JSONObject jsonObject = new JSONObject(errorBody);
                         String errorMessage = jsonObject.optString("message", "Something went wrong");
                         return new ApiException(response.code(), errorMessage);
@@ -35,6 +35,6 @@ public class ApiErrorUtils {
 
         throwable.printStackTrace();
         // If parsing the error response fails or it's not an HttpException, create a generic error
-        return new ApiException(-1, "An unknown error occurred");
+        return new ApiException(-1, "Something went wrong");
     }
 }
