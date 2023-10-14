@@ -26,13 +26,22 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
 
     private List<Restaurant> restaurantsList;
     private LayoutInflater inflater;
+
+    public interface RestaurantClickListener {
+        void onRestaurantClickListener(String id);
+
+    }
+
+    private RestaurantClickListener restaurantClickListener;
+
     Context context;
 
-    private boolean isGridView;
+    private final boolean isGridView;
 
-    public RestaurantAdapter(Context context, boolean isGridView) {
+    public RestaurantAdapter(Context context, RestaurantClickListener restaurantClickListener, boolean isGridView) {
         restaurantsList = new ArrayList<>();
         this.isGridView = isGridView;
+        this.restaurantClickListener = restaurantClickListener;
         this.context = context;
         inflater = LayoutInflater.from(context);
     }
@@ -70,8 +79,10 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         }
         catch (Exception e) {}
 
-        holder.itemView.setOnClickListener(v->{
-           // ((MainActivity) v.getContext()).getRestaurant(restaurantsList.get(position).getRestaurantSlug());
+        holder.itemView.setOnClickListener(v -> {
+            if (restaurantClickListener != null) {
+                restaurantClickListener.onRestaurantClickListener(restaurant.getId());
+            }
         });
 
 

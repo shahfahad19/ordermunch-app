@@ -14,12 +14,11 @@ public class ApiClient {
         if (retrofit == null) {
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
-            String authToken = Hawk.get("jwtToken", "");
 
             httpClient.addInterceptor(chain -> {
                 Request originalRequest = chain.request();
                 Request newRequest = originalRequest.newBuilder()
-                        .header("Authorization", "Bearer " + authToken)
+                        .header("Authorization", "Bearer " + Hawk.get("jwtToken", ""))
                         .build();
                 return chain.proceed(newRequest);
             });

@@ -1,9 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.ViewRestaurantActivity">
+    android:orientation="vertical"
+    tools:context=".UI.ViewRestaurantActivity"
+    android:id="@+id/mainView">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/restaurantInfo"
+        android:layout_width="match_parent"
+        android:layout_height="125dp">
+
+
+
+        <!-- Background Image -->
+        <ImageView
+            android:id="@+id/restaurantBg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/foodbg"
+            android:scaleType="centerCrop" />
+
+        <!-- Black Overlay -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#99000000"
+            android:id="@+id/black_overlay" />
+
+        <LinearLayout
+            android:id="@+id/searchLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/itemSearchBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ddffffff"
+                android:layout_margin="10dp"
+                android:hint="Search in restaurant..."
+                android:fontFamily="@font/space_grotesk_medium"
+                android:padding="10sp"
+                android:textSize="16sp"
+                />
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/restaurantLogo"
+            android:layout_below="@id/searchLayout"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="20sp"
+            android:src="@drawable/logo"/>
+
+        <TextView
+            android:id="@+id/restaurantName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/searchLayout"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@id/restaurantLogo"
+            android:fontFamily="@font/space_grotesk_medium"
+            android:text="Restaurant Name"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+
+        <!-- Your Content Goes Here -->
+        <!-- You can add your UI elements, such as TextViews, Buttons, etc., below the black overlay -->
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/restaurantInfo">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Items"
+            android:textColor="@color/primary"
+            android:fontFamily="@font/krona_one"
+            android:textSize="18sp"
+            android:padding="5sp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:padding="5dp"
+            android:layout_weight="1"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/noFoundView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <ImageView
+            android:layout_width="100sp"
+            android:layout_height="100sp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_notfound"
+            android:layout_marginBottom="20sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAllCaps="true"
+            android:textColor="@color/primary"
+            android:textSize="18sp"
+            android:fontFamily="@font/krona_one"
+            android:text="No Items Found"/>
+    </LinearLayout>
+
+
+
+</RelativeLayout>

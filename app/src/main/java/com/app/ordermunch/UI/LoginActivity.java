@@ -2,8 +2,10 @@ package com.app.ordermunch.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -38,10 +40,14 @@ public class LoginActivity extends AppCompatActivity {
 
     TextView signupText;
 
+    Activity activity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        activity = this;
 
         // Creating API Service object
         apiService = ApiClient.getClient().create(ApiService.class);
@@ -93,6 +99,13 @@ public class LoginActivity extends AppCompatActivity {
 
                             // Saving token using Hawk Library
                             Hawk.put("jwtToken", token);
+
+                            // Open Main Activity
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(intent);
+                            finish();
+
+
 
                         }
 

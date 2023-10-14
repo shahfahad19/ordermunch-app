@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.app.ordermunch.API.ApiClient;
 import com.app.ordermunch.API.ApiErrorUtils;
@@ -41,6 +42,10 @@ public class ItemsActivity extends AppCompatActivity implements ItemAdapter.Item
     EditText searchEditText;
     List<Item> itemList;
 
+    LinearLayout notFound;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +60,7 @@ public class ItemsActivity extends AppCompatActivity implements ItemAdapter.Item
 
         recyclerView = findViewById(R.id.recyclerView);
         searchEditText = findViewById(R.id.itemSearchBox);
+        notFound = findViewById(R.id.noFoundView);
 
         itemAdapter = new ItemAdapter(this, this);
         recyclerView.setAdapter(itemAdapter);
@@ -116,18 +122,20 @@ public class ItemsActivity extends AppCompatActivity implements ItemAdapter.Item
                 // Filter the recipe list based on the search text
                 String searchText = s.toString().toLowerCase().trim();
 
-                if (searchText.isEmpty()) {
-
-                }
-                else {
-
-                }
-
-                List<Item> filteredList = new ArrayList<>();
+                              List<Item> filteredList = new ArrayList<>();
                 for (Item item : itemList) {
                     if (item.getName().toLowerCase().contains(searchText)) {
                         filteredList.add(item);
                     }
+                }
+
+                // Check if any items found
+                if (filteredList.size() == 0) {
+                    notFound.setVisibility(View.VISIBLE);
+                }
+                else {
+                    notFound.setVisibility(View.INVISIBLE);
+
                 }
 
                 // Update the recyclerview adapter with filtered data
@@ -149,7 +157,7 @@ public class ItemsActivity extends AppCompatActivity implements ItemAdapter.Item
 
     public void showItems() {
         if (itemList.isEmpty()) {
-            LinearLayout notFound = findViewById(R.id.noFoundView);
+
             notFound.setVisibility(View.VISIBLE);
         }
         else {

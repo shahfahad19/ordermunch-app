@@ -17,12 +17,13 @@ import com.orhanobut.hawk.Hawk;
 public class SplashActivity extends AppCompatActivity {
 
 
-    private static final int SPLASH_DURATION = 500; // Splash screen duration in milliseconds
+    private static final int SPLASH_DURATION = 1000; // Splash screen duration in milliseconds
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Hawk.init(this).build();
+
+        Hawk.init(getApplicationContext()).build();
 
 
         // Hide the status bar

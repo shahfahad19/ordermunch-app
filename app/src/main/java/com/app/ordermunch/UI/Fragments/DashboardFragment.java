@@ -38,6 +38,7 @@ import com.app.ordermunch.UI.LoginActivity;
 import com.app.ordermunch.UI.RestaurantsActivity;
 import com.app.ordermunch.UI.SearchItemsActivity;
 import com.app.ordermunch.UI.ViewItemActivity;
+import com.app.ordermunch.UI.ViewRestaurantActivity;
 import com.app.ordermunch.Utils.CustomAlert;
 import com.app.ordermunch.Utils.CustomProgressDialog;
 import com.orhanobut.hawk.Hawk;
@@ -49,7 +50,7 @@ import retrofit2.Callback;
 import retrofit2.HttpException;
 import retrofit2.Response;
 
-public class DashboardFragment extends Fragment implements ItemAdapter.ItemClickListener  {
+public class DashboardFragment extends Fragment implements ItemAdapter.ItemClickListener, RestaurantAdapter.RestaurantClickListener {
 
 
     RecyclerView restaurantRecyclerView, itemRecyclerView;
@@ -82,7 +83,7 @@ public class DashboardFragment extends Fragment implements ItemAdapter.ItemClick
         seeAllItemsButton = view.findViewById(R.id.seeAllItemsBtn);
         dashboardMainView = view.findViewById(R.id.dashboardMainView);
 
-        restaurantAdapter = new RestaurantAdapter(getContext(), false);
+        restaurantAdapter = new RestaurantAdapter(getContext(), this, false);
         itemAdapter = new ItemAdapter(getContext(), this);
 
         restaurantRecyclerView.setAdapter(restaurantAdapter);
@@ -101,20 +102,22 @@ public class DashboardFragment extends Fragment implements ItemAdapter.ItemClick
     }
 
     public void fetchRestaurants() {
-        customProgressDialog.showProgressDialog("Loading data");
+        customProgressDialog.showProgressDialog("Loading restaurants");
         Call<RestaurantsResponse> restaurantCall = apiService.getRestaurants();
 
         restaurantCall.enqueue(new Callback<RestaurantsResponse>() {
             @Override
             public void onResponse(Call<RestaurantsResponse> call, Response<RestaurantsResponse> response) {
 
-                //customProgressDialog.hide();
+                customProgressDialog.hide();
 
                 // If login is successful
                 if (response.isSuccessful()) {
                     RestaurantsResponse restaurantsResponse = response.body();
                     List<Restaurant> restaurantList = restaurantsResponse.getRestaurants();
                     restaurantAdapter.updateData(restaurantList);
+
+                    customProgressDialog.showProgressDialog("Loading items");
                     fetchItems();
                 }
 
@@ -211,6 +214,13 @@ public class DashboardFragment extends Fragment implements ItemAdapter.ItemClick
     public void onItemClickListener(String id) {
         Intent intent = new Intent(getContext(), ViewItemActivity.class);
         intent.putExtra("id", id);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onRestaurantClickListener(String id) {
+        Intent intent = new Intent(getContext(), ViewRestaurantActivity.class);
+        intent.putExtra("restaurantId", id);
         startActivity(intent);
     }
 }

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="5dp"
+    android:padding="5dp">
+
+    <RelativeLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:padding="10sp">
+
+        <TextView
+            android:id="@+id/orderDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date"
+            android:textSize="20sp"
+            android:textColor="@color/primary"
+            android:fontFamily="@font/space_grotesk_semibold"
+            />
+
+        <TextView
+            android:id="@+id/orderLabel"
+            android:layout_below="@id/orderDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Order#"
+            android:textSize="18sp"
+            android:fontFamily="@font/space_grotesk_medium"
+            />
+
+        <TextView
+            android:id="@+id/orderId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="9dp"
+            android:layout_toEndOf="@id/orderLabel"
+            android:layout_below="@id/orderDate"
+            android:fontFamily="@font/space_grotesk"
+            android:text="6a788b75c5a"
+            android:textColor="@color/gray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/orderStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pending"
+            android:paddingTop="5sp"
+            android:textSize="18sp"
+            android:layout_below="@id/orderLabel"
+            android:fontFamily="@font/space_grotesk_semibold"
+            />
+
+
+        <TextView
+            android:id="@+id/orderItems"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Items: 0"
+            android:textSize="16sp"
+            android:layout_alignParentEnd="true"
+            android:fontFamily="@font/inter_medium"
+            />
+        <TextView
+            android:id="@+id/orderAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MYR. 20"
+            android:layout_alignParentBottom="true"
+            android:textSize="18sp"
+            android:layout_alignParentEnd="true"
+            android:paddingTop="5sp"
+            android:fontFamily="@font/space_grotesk_semibold"
+            />
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

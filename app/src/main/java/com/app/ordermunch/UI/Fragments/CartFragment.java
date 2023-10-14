@@ -1,7 +1,9 @@
 package com.app.ordermunch.UI.Fragments;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,18 +28,27 @@ import com.app.ordermunch.API.Models.Auth.LoginResponse;
 import com.app.ordermunch.API.Models.Cart.CartRequest;
 import com.app.ordermunch.API.Models.Cart.CartResponse;
 import com.app.ordermunch.API.Models.Item.ItemResponse;
+import com.app.ordermunch.API.Models.Order.SingleOrderResponse;
 import com.app.ordermunch.Adapters.CartAdapter;
 import com.app.ordermunch.Adapters.ItemAdapter;
 import com.app.ordermunch.Models.CartItem;
 import com.app.ordermunch.Models.Item;
+import com.app.ordermunch.Models.Order;
 import com.app.ordermunch.R;
 import com.app.ordermunch.UI.ItemsActivity;
 import com.app.ordermunch.UI.LoginActivity;
+import com.app.ordermunch.UI.ViewOrderActivity;
 import com.app.ordermunch.Utils.CustomAlert;
 import com.app.ordermunch.Utils.CustomProgressDialog;
 import com.orhanobut.hawk.Hawk;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,6 +65,8 @@ public class CartFragment extends Fragment implements CartAdapter.CartItemClickL
 
     LinearLayout notFound;
 
+    Button checkoutBtn;
+
 
 
     @Nullable
@@ -68,9 +82,12 @@ public class CartFragment extends Fragment implements CartAdapter.CartItemClickL
         recyclerView = view.findViewById(R.id.recyclerView);
         totalAmount = view.findViewById(R.id.totalCartAmount);
         notFound = view.findViewById(R.id.noFoundView);
+        checkoutBtn = view.findViewById(R.id.checkoutBtn);
 
 
         recyclerView.setAdapter(cartAdapter);
+
+        checkoutBtn.setOnClickListener(v-> checkOut());
 
 
         getCart();
@@ -312,5 +329,59 @@ public class CartFragment extends Fragment implements CartAdapter.CartItemClickL
         });
     }
 
+    public void checkOut() {
+        customProgressDialog.showProgressDialog("Placing order...");
+        Call<SingleOrderResponse> checkoutCall = apiService.checkout();
 
+        checkoutCall.enqueue(new Callback<SingleOrderResponse>() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onResponse(Call<SingleOrderResponse> call, Response<SingleOrderResponse> response) {
+
+                customProgressDialog.hide();
+
+                // If request is successful
+                if (response.isSuccessful()) {
+                    cartAdapter.updateData(new ArrayList<>());
+                    SingleOrderResponse orderResponse = response.body();
+                    Order order = orderResponse.getOrder();
+
+                    Intent intent = new Intent(getContext(), ViewOrderActivity.class);
+                    intent.putExtra("id", order.getId());
+                    startActivity(intent);
+                }
+
+                // If request failed
+                else {
+                    // Parsing Error
+                    ApiException apiException = ApiErrorUtils.parseError(new HttpException(response));
+
+                    // Getting error message
+                    String errorMessage = apiException.getErrorMessage();
+
+                    // Showing message in toast
+                    CustomAlert.showCustomDialog(getContext(), R.drawable.em_sad, errorMessage);
+
+                }
+            }
+
+
+            // If request failed due to a network error
+            @Override
+            public void onFailure(Call<SingleOrderResponse> call, Throwable t) {
+
+                customProgressDialog.hide();
+
+                // Parsing error
+                ApiException apiException = ApiErrorUtils.parseError(t);
+
+                // Getting error message
+                String errorMessage = apiException.getErrorMessage();
+
+                // Show error message
+                CustomAlert.showCustomDialog(getContext(), R.drawable.em_sad, errorMessage);
+
+            }
+        });
+    }
 }

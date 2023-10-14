@@ -1,17 +1,16 @@
 package com.app.ordermunch.API.Models.Auth;
 
+import com.app.ordermunch.Models.Profile;
+
 public class LoginResponse {
     private String token;
-
-    // Default constructor (required for Gson)
-    public LoginResponse() {
-    }
-
-    public LoginResponse(String token, String userId, String username, String email, boolean success, String message) {
-        this.token = token;
-    }
+    private Profile user;
 
     public String getToken() {
         return token;
+    }
+
+    public Profile getProfile() {
+        return user;
     }
 }

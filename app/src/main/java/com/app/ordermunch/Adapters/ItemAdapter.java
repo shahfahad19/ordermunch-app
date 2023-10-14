@@ -62,6 +62,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
         // Bind the data to the views in the grid item layout
         holder.itemName.setText(item.getName());
         holder.itemPrice.setText("MYR. "+item.getPrice());
+        holder.itemRating.setText(item.getRating()+"/5");
         holder.itemRatedBy.setText("("+item.getRatedBy()+")");
         holder.restaurantName.setText(item.getRestaurant().getName());
 
@@ -72,7 +73,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
                     .load(item.getImage())
                     .into(holder.itemImage);
         }
-        catch (Exception e) {}
+        catch (Exception ignored) {}
 
         holder.itemView.setOnClickListener(v -> {
             if (itemClickListener != null) {
@@ -91,13 +92,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView itemImage;
-        TextView itemName,  itemPrice,  itemRatedBy, restaurantName;
+        TextView itemName, itemRating,  itemPrice,  itemRatedBy, restaurantName;
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             itemImage = itemView.findViewById(R.id.itemImage);
             itemName = itemView.findViewById(R.id.itemName);
+            itemRating = itemView.findViewById(R.id.itemRating);
             itemPrice = itemView.findViewById(R.id.itemPrice);
             itemRatedBy = itemView.findViewById(R.id.itemRatedBy);
             restaurantName = itemView.findViewById(R.id.restaurantName);

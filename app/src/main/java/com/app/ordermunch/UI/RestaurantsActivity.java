@@ -3,6 +3,7 @@ package com.app.ordermunch.UI;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -25,7 +26,7 @@ import retrofit2.Callback;
 import retrofit2.HttpException;
 import retrofit2.Response;
 
-public class RestaurantsActivity extends AppCompatActivity {
+public class RestaurantsActivity extends AppCompatActivity implements RestaurantAdapter.RestaurantClickListener {
 
     ApiService apiService;
     RecyclerView recyclerView;
@@ -40,7 +41,7 @@ public class RestaurantsActivity extends AppCompatActivity {
         customProgressDialog.showProgressDialog("Loading Restaurants");
 
         apiService = ApiClient.getClient().create(ApiService.class);
-        restaurantAdapter = new RestaurantAdapter(this, true);
+        restaurantAdapter = new RestaurantAdapter(this,this, true);
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setAdapter(restaurantAdapter);
@@ -105,5 +106,12 @@ public class RestaurantsActivity extends AppCompatActivity {
         else {
             restaurantAdapter.updateData(restaurantList);        }
 
+    }
+
+    @Override
+    public void onRestaurantClickListener(String id) {
+        Intent intent = new Intent(this, ViewRestaurantActivity.class);
+        intent.putExtra("restaurantId", id);
+        startActivity(intent);
     }
 }

@@ -2,6 +2,8 @@ package com.app.ordermunch.Models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Item {
 
     @SerializedName("_id")
@@ -12,6 +14,8 @@ public class Item {
     private String category;
     private Restaurant restaurant;
     private double price;
+
+    private int item_count;
 
     private double rating;
 
