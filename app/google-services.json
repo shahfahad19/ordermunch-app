@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "296310997596",
+    "project_id": "ordermunch-5911d",
+    "storage_bucket": "ordermunch-5911d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296310997596:android:8d0093ebda89a8688e9c99",
+        "android_client_info": {
+          "package_name": "com.app.ordermunch"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbodMA7gCwE37AelS8n41aVaD53Ts0TGg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
